@@ -25,10 +25,30 @@
   background-color: var(--color__black);
 }
 
-.page {
+.container-fluid {
   min-width: 320px;
-  max-width: 1140px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.container {
+  min-width: 320px;
+  max-width: var(--width-container_base);
   margin: 0 auto;
+}
+
+.section-title {
+  display: flex;
+  position: relative;
+  min-height: 51px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--color__gray_light);
 }
 
 .link {
@@ -51,23 +71,12 @@
   background: var(--color__blue_dark);
 }
 
-.container-fluid {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
-
 /*HEADER ==============*/
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: var(--width-container_base);
-  margin: 0 auto;
   min-height: 74px;
 }
 
@@ -112,8 +121,6 @@
 .lead {
   display: grid;
   gap: 102px;
-  max-width: var(--width-container_base);
-  margin: 0 auto;
   padding: 50px 0 60px;
 }
 
@@ -137,3 +144,90 @@
 }
 
 /*============= LEAD*/
+
+/*ABOUT ===============*/
+
+.about {
+  padding: 110px 0;
+}
+
+.about__title {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+}
+
+.about__text {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin: 70px 0 110px;
+}
+
+.about__text-item {
+  display: grid;
+  gap: 26px;
+}
+
+.about__text-title {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.about__text-desc {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about__timing {
+  display: grid;
+  grid-template-columns: 228px auto;
+}
+
+.about__timing-item {
+  display: grid;
+  gap: 14px;
+}
+
+.about__timing-title {
+  display: grid;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  min-height: 36px;
+}
+
+.about__timing-title_theme_green {
+  background: var(--color__green);
+  color: #000;
+}
+
+.about__timing-title_theme_dark {
+  background: var(--color__gray_dark);
+}
+
+.about__timing-desc {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: var(--color__gray);
+}
+
+/*================ ABOUT*/
