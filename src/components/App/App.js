@@ -1,3 +1,4 @@
+import photoStudent from '../../images/student__photo.png';
 import './App.css';
 
 function App() {
@@ -59,6 +60,39 @@ function App() {
           </ul>
         </section>
       </div>
+
+      <section className="student container">
+        <h2 className="section-title">Студент</h2>
+
+        <div className="student__about">
+          <div className="student__about-text">
+            <h3 className="student__about-name">Вячеслав</h3>
+            <p className="student__about-job">Фронтенд-разработчик, 33 года</p>
+            <p className="student__about-desc">Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
+            <a href="#" className="student__about-github link" target="_blank">Github</a>
+          </div>
+          <img src={photoStudent} alt="Фото студента" className="student__about-photo"/>
+        </div>
+
+        <div className="student__portfolio">
+          <h3 className="student__portfolio-title">Портфолио</h3>
+          <ul className="student__portfolio-list">
+            <li className="student__portfolio-item">
+              <a href="#" className="student__portfolio-link link" target="_blank">Статичный сайт</a>
+            </li>
+            <li className="student__portfolio-item">
+              <a href="#" className="student__portfolio-link link" target="_blank">Адаптивный сайт</a>
+            </li>
+            <li className="student__portfolio-item">
+              <a href="#" className="student__portfolio-link link" target="_blank">Одностраничное приложение</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <footer className="footer">
+
+      </footer>
     </div>
   );
 }
