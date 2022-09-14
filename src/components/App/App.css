@@ -1,8 +1,16 @@
 :root {
-  --color__black: #000;
   --color__white: #fff;
-  --color__gray: #545454;
-  --color__red: #FF0000;
+  --color__black: #202020;
+  --color__dark: #272727;
+  --color__gray: #8B8B8B;
+  --color__gray_dark: #303030;
+  --color__gray_light: #DADADA;
+  --color__blue: #4285F4;
+  --color__blue_dark: #073042;
+  --color__green: #3DDC84;
+  --color__red: #EE3465;
+
+  --width-container_base: 1140px;
 }
 
 .body {
@@ -22,3 +30,110 @@
   max-width: 1140px;
   margin: 0 auto;
 }
+
+.link {
+  transition: .2s ease;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
+.btn {
+  transition: .2s ease;
+}
+
+.btn:hover {
+  opacity: .8;
+}
+
+.theme_dark_blue {
+  background: var(--color__blue_dark);
+}
+
+.container-fluid {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/*HEADER ==============*/
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--width-container_base);
+  margin: 0 auto;
+  min-height: 74px;
+}
+
+.header__logo {
+  background: url(../../images/logo.svg) no-repeat;
+  background-size: cover;
+  width: 38px;
+  height: 38px;
+  transition: .2s ease;
+}
+
+.header__personal {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__personal-signup {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color__white);
+}
+
+.header__personal-signin {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  background: var(--color__green);
+  padding: 8px 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+/*============ HEADER*/
+
+/*LEAD ================*/
+
+.lead {
+  display: grid;
+  gap: 102px;
+  max-width: var(--width-container_base);
+  margin: 0 auto;
+  padding: 50px 0 60px;
+}
+
+.lead__title {
+  max-width: 626px;
+  color: var(--color__white);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 52px;
+  letter-spacing: -0.04em;
+  margin: 0;
+  padding: 0;
+}
+
+.lead__img {
+  justify-self: end;
+  background: url(../../images/lead__img.svg) no-repeat;
+  background-size: cover;
+  width: 722px;
+  height: 244px;
+}
+
+/*============= LEAD*/
