@@ -3,7 +3,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="page">
+    <>
       <div className="container-fluid theme_dark_blue">
         <header className="header container">
           <a href="/" className="header__logo link"></a>
@@ -100,7 +100,7 @@ function App() {
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
 

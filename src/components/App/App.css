@@ -297,7 +297,7 @@
 /*STUDENT =============*/
 
 .student {
-  padding: 110px 0 125px;
+  padding: 110px 0 105px;
 }
 
 .student__about {
@@ -410,8 +410,8 @@
   bottom: 50%;
   right: 0;
   background: url(../../images/icons/icon__link.svg) no-repeat;
-  background-size: cover;
-  width: 18px;
+  background-size: contain;
+  width: 25px;
   height: 17px;
 }
 /*============= STUDENT*/
@@ -471,3 +471,31 @@
 }
 
 /*================= FOOTER*/
+
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 1024px) and (max-width: 1279px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media (min-width: 425px) and (max-width: 992px) {
+
+}
+
+@media (max-width: 720px) {
+
+}
+
+@media (max-width: 550px) {
+
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 424px) {
+
+}
