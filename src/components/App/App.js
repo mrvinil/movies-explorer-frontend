@@ -90,8 +90,15 @@ function App() {
         </div>
       </section>
 
-      <footer className="footer">
-
+      <footer className="footer container">
+        <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
+        <div className="footer__bot">
+          <p className="footer__copyright">© 2022</p>
+          <div className="footer__project">
+            <a href="#" className="footer__project-link link">Яндекс.Практикум</a>
+            <a href="#" className="footer__project-link link">Github</a>
+          </div>
+        </div>
       </footer>
     </div>
   );

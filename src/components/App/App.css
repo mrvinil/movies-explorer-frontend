@@ -415,3 +415,59 @@
   height: 17px;
 }
 /*============= STUDENT*/
+
+
+/*FOOTER ================*/
+
+.footer {
+  padding: 79px 0 20px;
+}
+
+.footer__title {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: var(--color__gray);
+}
+
+.footer__bot {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.footer__bot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  border-top: 1px solid #424242;
+}
+
+.footer__copyright {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.footer__project {
+  display: flex;
+  gap: 20px;
+}
+
+.footer__project-link {
+  text-decoration: none;
+  color: var(--color__white);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+/*================= FOOTER*/
