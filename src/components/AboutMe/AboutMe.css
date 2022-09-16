@@ -1,0 +1,165 @@
+/*STUDENT =============*/
+.student {
+  padding: 110px 0 105px;
+}
+
+.student__about {
+  display: grid;
+  grid-template-columns: 600px auto;
+  justify-content: space-between;
+  padding: 66px 0 101px;
+}
+
+.student__about-text {
+  display: grid;
+}
+
+.student__about-photo {
+  object-fit: cover;
+  width: 100%;
+  max-width: 270px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.student__about-name {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+
+.student__about-job {
+  margin: 0;
+  padding: 18px 0 26px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.student__about-desc {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.student__about-github {
+  display: grid;
+  align-self: end;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .student {
+    padding: 90px 0 71px;
+  }
+
+  .student__about {
+    grid-template-columns: 348px auto;
+    justify-content: space-between;
+    padding: 66px 0 91px;
+  }
+
+  .student__about-name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .student__about-job {
+    padding: 16px 0 20px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .student__about-desc {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .student__about-photo {
+    max-width: 255px;
+  }
+
+  .student__portfolio-link {
+    font-size: 28px;
+  }
+}
+@media (max-width: 424px) {
+  .student {
+    padding: 70px 0 51px;
+  }
+
+  .student__about {
+    grid-template-columns: 1fr;
+    padding: 60px 0 70px;
+    gap: 40px;
+  }
+
+  .student__about-text {
+    order: 2;
+  }
+
+  .student__about-photo {
+    order: 1;
+    max-width: 100%;
+  }
+
+  .student__about-name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .student__about-job {
+    padding: 20px 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__about-desc {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__about-github {
+    padding-top: 40px;
+  }
+
+  .student__portfolio {
+    gap: 40px;
+  }
+
+  .student__portfolio-title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .student__portfolio-item {
+    min-height: 48px;
+  }
+
+  .student__portfolio-link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .student__portfolio-link::after {
+    width: 11px;
+    height: 14px;
+  }
+
+  .student__portfolio-item::after {
+    border-bottom: 1px solid #E6E6E6;
+  }
+}
+/*============= STUDENT*/
