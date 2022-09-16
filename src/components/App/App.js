@@ -1,20 +1,21 @@
 import photoStudent from '../../images/student__photo.png';
+import leadImg from '../../images/lead__img.svg';
 import './App.css';
 
 function App() {
   return (
     <>
       <div className="container-fluid theme_dark_blue">
-        <header className="header container">
+        <header className="header container container_size_big">
           <a href="/" className="header__logo link"></a>
           <div className="header__personal">
             <a href="#" className="header__personal-signup link">Регистрация</a>
             <a href="#" className="header__personal-signin btn">Войти</a>
           </div>
         </header>
-        <section className="lead container">
+        <section className="lead container container_size_big">
           <h1 className="lead__title">Учебный проект студента факультета Веб-разработки.</h1>
-          <div className="lead__img"></div>
+          <img src={leadImg} alt="Project" className="lead__img"/>
         </section>
       </div>
 
@@ -90,7 +91,7 @@ function App() {
         </div>
       </section>
 
-      <footer className="footer container">
+      <footer className="footer container container_size_big">
         <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
         <div className="footer__bot">
           <p className="footer__copyright">© 2022</p>
