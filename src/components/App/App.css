@@ -44,3 +44,35 @@
 .btn:hover {
   opacity: .8;
 }
+
+.container {
+  max-width: var(--width-container_1280);
+  margin: 0 auto;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+.container-fluid {
+  max-width: 100%;
+  width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .container {
+    max-width: var(--width-container_768);
+  }
+
+  .container_size_big {
+    max-width: var(--width-container_768_big);
+  }
+}
+
+@media (max-width: 424px) {
+  .container {
+    max-width: var(--width-container_320);
+  }
+
+  .container_size_big {
+    max-width: var(--width-container_320_big);
+  }
+}

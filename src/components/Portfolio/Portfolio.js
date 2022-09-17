@@ -3,20 +3,20 @@ import './Portfolio.css';
 
 function Portfolio() {
   return (
-    <div className="student__portfolio">
-      <h3 className="student__portfolio-title">Портфолио</h3>
-      <ul className="student__portfolio-list">
-        <li className="student__portfolio-item">
-          <a href="https://undressme.ru" className="student__portfolio-link link" target="_blank" rel="noreferrer">Интернет-магазин</a>
+    <section className="portfolio container">
+      <h3 className="portfolio__title">Портфолио</h3>
+      <ul className="portfolio__list">
+        <li className="portfolio__item">
+          <a href="https://undressme.ru" className="portfolio__link link" target="_blank" rel="noreferrer">Интернет-магазин</a>
         </li>
-        <li className="student__portfolio-item">
-          <a href="https://bitovki.biz" className="student__portfolio-link link" target="_blank" rel="noreferrer">Сайт производственной компании</a>
+        <li className="portfolio__item">
+          <a href="https://bitovki.biz" className="portfolio__link link" target="_blank" rel="noreferrer">Сайт компании</a>
         </li>
-        <li className="student__portfolio-item">
-          <a href="https://mrvinil.project.nomoredomains.sbs" className="student__portfolio-link link" target="_blank" rel="noreferrer">Одностраничное приложение</a>
+        <li className="portfolio__item">
+          <a href="https://mrvinil.project.nomoredomains.sbs" className="portfolio__link link" target="_blank" rel="noreferrer">Одностраничное приложение</a>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }
 

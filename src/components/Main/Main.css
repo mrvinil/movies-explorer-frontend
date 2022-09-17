@@ -1,14 +1,4 @@
 /*MAIN ===================*/
-.container-fluid {
-  max-width: 100%;
-  width: 100%;
-}
-
-.container {
-  max-width: var(--width-container_1280);
-  margin: 0 auto;
-}
-
 .section-title {
   display: flex;
   position: relative;
@@ -37,25 +27,7 @@
   background: var(--color__dark);
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-  .container {
-    max-width: var(--width-container_768);
-  }
-
-  .container_size_big {
-    max-width: var(--width-container_768_big);
-  }
-}
-
 @media (max-width: 424px) {
-  .container {
-    max-width: var(--width-container_320);
-  }
-
-  .container_size_big {
-    max-width: var(--width-container_320_big);
-  }
-
   .section-title {
     font-size: 18px;
     line-height: 22px;
@@ -63,43 +35,6 @@
 
   .theme_dark {
     background: transparent;
-  }
-}
-
-@media (min-width: 425px) and (max-width: 725px) {
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .student__portfolio-link {
-    font-size: 24px;
-  }
-
-  .student__about {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .student__about-photo {
-    order: 1;
-    justify-self: center;
-    max-width: 100%;
-  }
-
-  .student__about-text {
-    order: 2;
-  }
-
-  .student__about-github {
-    margin-top: 20px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
   }
 }
 /*===================== MAIN*/

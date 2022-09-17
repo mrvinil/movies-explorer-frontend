@@ -1,13 +1,11 @@
 import React from 'react';
 import './AboutMe.css';
-import Portfolio from '../Portfolio/Portfolio';
 import photoStudent from '../../images/student__photo.png';
 
 function AboutMe() {
   return (
     <section className="student container">
       <h2 className="section-title">Студент</h2>
-
       <div className="student__about">
         <div className="student__about-text">
           <h3 className="student__about-name">Вячеслав</h3>
@@ -17,9 +15,6 @@ function AboutMe() {
         </div>
         <img src={photoStudent} alt="Фото студента" className="student__about-photo"/>
       </div>
-
-      <Portfolio />
-
     </section>
   );
 }

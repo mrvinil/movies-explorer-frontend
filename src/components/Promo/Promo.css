@@ -1,11 +1,11 @@
-/*LEAD ================*/
-.lead {
+/*PROMO ================*/
+.promo {
   display: grid;
   gap: 102px;
   padding: 50px 0 60px;
 }
 
-.lead__title {
+.promo__title {
   max-width: 626px;
   color: var(--color__white);
   font-weight: 400;
@@ -16,7 +16,7 @@
   padding: 0;
 }
 
-.lead__img {
+.promo__img {
   justify-self: end;
   width: 100%;
   max-width: 722px;
@@ -24,18 +24,18 @@
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
-  .lead {
+  .promo {
     gap: 140px;
     justify-content: center;
     padding: 300px 0 70px;
   }
 
-  .lead__title {
+  .promo__title {
     text-align: center;
     max-width: 680px;
   }
 
-  .lead__img {
+  .promo__img {
     max-width: 680px;
     height: 230px;
     justify-self: center;
@@ -43,7 +43,7 @@
 }
 
 @media (max-width: 424px) {
-  .lead {
+  .promo {
     max-width: 100%;
     gap: 60px;
     justify-content: center;
@@ -51,14 +51,14 @@
     overflow: hidden;
   }
 
-  .lead__title {
+  .promo__title {
     font-size: 31px;
     line-height: 39px;
     padding: 0 5px;
     text-align: center;
   }
 
-  .lead__img {
+  .promo__img {
     width: auto;
     justify-self: center;
     max-height: 230px;
@@ -66,4 +66,4 @@
     overflow: hidden;
   }
 }
-/*============= LEAD*/
+/*============= PROMO*/
