@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className="container-fluid theme_dark_blue">
       <div className="header container container_size_big">
-        <Link to="/" className="header__logo link"></Link>
+        <Link to="/" className="logo link"></Link>
         <Navigation />
       </div>
     </header>
