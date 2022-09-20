@@ -1,0 +1,43 @@
+/*AUTH ==============*/
+.header__auth {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__auth-signup {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color__white);
+}
+
+.header__auth-signin {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000;
+  background: var(--color__green);
+  padding: 8px 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+@media (max-width: 424px) {
+  .header__auth {
+    gap: 14px;
+  }
+
+  .header__auth-signup {
+    font-size: 10px;
+  }
+
+  .header__auth-signin {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}
+/*=============== AUTH*/
