@@ -5,13 +5,16 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Promo from "../Promo/Promo";
 import Portfolio from "../Portfolio/Portfolio";
-import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Auth from "../Auth/Auth";
+import Header from "../Header/Header";
 
 function Main() {
   return (
     <>
-      <Header />
+      <Header>
+        <Auth />
+      </Header>
       <Promo />
       <AboutProject />
       <Techs />
