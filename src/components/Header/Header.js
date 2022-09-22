@@ -8,8 +8,8 @@ function Header(props) {
   const indexUrl = currentUrl.pathname === '/';
 
   return (
-    <header className={`${indexUrl ? 'container-fluid theme_dark_blue' : 'container container_size_big'}`}>
-      <div className={`${indexUrl ? 'header header_type_index container container_size_big' : 'header header_type_others'}`}>
+    <header className={`${indexUrl ? 'container-fluid theme_dark_blue' : 'container'}`}>
+      <div className={`${indexUrl ? 'header header_type_index container' : 'header header_type_others'}`}>
         <Link to="/" className="logo link"></Link>
         {props.children}
       </div>

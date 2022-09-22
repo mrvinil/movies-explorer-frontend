@@ -65,25 +65,7 @@
   transition: .2s ease;
 }
 
-@media (min-width: 768px) and (max-width: 992px) {
-  .container {
-    max-width: var(--width-container_768);
-  }
-
-  .container_size_big {
-    max-width: var(--width-container_768_big);
-  }
-}
-
 @media (max-width: 424px) {
-  .container {
-    max-width: var(--width-container_320);
-  }
-
-  .container_size_big {
-    max-width: var(--width-container_320_big);
-  }
-
   .logo {
     justify-self: center;
   }

@@ -5,7 +5,7 @@ function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer container container_size_big">
+    <footer className="footer container">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__bot">
         <p className="footer__copyright">© {currentYear}</p>

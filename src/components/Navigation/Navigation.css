@@ -184,7 +184,7 @@
 }
 
 @media (max-width: 424px) {
-  .header__nav {
+  .header__nav.active {
     width: 100vw;
   }
 
