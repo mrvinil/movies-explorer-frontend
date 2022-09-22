@@ -5,6 +5,7 @@ import './App.css';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import Movies from '../Movies/Movies';
 
 function App() {
   const [ isNavigationMenuOpen, setIsNavigationMenuOpen ] = React.useState(false);
@@ -43,26 +44,33 @@ function App() {
   }
 
   return (
-    <>
-      <main>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/signin" element={<Login />} />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                isNavigationMenuOpen={isNavigationMenuOpen}
-                isNavigationButtonClass={isNavigationButtonClass}
-                handleOpenNavigationMenu={handleOpenNavigationMenu}
-                onClose={closeAllPopups}
-              />
-            }
-          />
-        </Routes>
-      </main>
-    </>
+      <Routes>
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/" element={<Main />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              isNavigationMenuOpen={isNavigationMenuOpen}
+              isNavigationButtonClass={isNavigationButtonClass}
+              handleOpenNavigationMenu={handleOpenNavigationMenu}
+              onClose={closeAllPopups}
+            />
+          }
+        />
+        <Route
+          path="/movies"
+          element={
+            <Movies
+              isNavigationMenuOpen={isNavigationMenuOpen}
+              isNavigationButtonClass={isNavigationButtonClass}
+              handleOpenNavigationMenu={handleOpenNavigationMenu}
+              onClose={closeAllPopups}
+            />
+          }
+        />
+      </Routes>
   );
 }
 
