@@ -6,6 +6,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
+import { moviesData } from '../../utils/utils';
 
 function App() {
   const [ isNavigationMenuOpen, setIsNavigationMenuOpen ] = React.useState(false);
@@ -67,6 +68,7 @@ function App() {
               isNavigationButtonClass={isNavigationButtonClass}
               handleOpenNavigationMenu={handleOpenNavigationMenu}
               onClose={closeAllPopups}
+              movies={moviesData}
             />
           }
         />
