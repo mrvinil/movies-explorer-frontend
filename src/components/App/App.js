@@ -7,6 +7,7 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { moviesData, favoriteMoviesData } from '../../utils/utils';
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
           />
         }
       />
+      <Route path="/page-not-found" element={<NotFoundPage />} />
     </Routes>
   );
 }
