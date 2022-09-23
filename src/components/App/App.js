@@ -48,9 +48,9 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Main />} />
       <Route path="/signup" element={<Register />} />
       <Route path="/signin" element={<Login />} />
-      <Route path="/" element={<Main />} />
       <Route
         path="/profile"
         element={
@@ -86,7 +86,7 @@ function App() {
           />
         }
       />
-      <Route path="/page-not-found" element={<NotFoundPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
