@@ -19,6 +19,8 @@ function Register() {
           name="userEmail"
           id="useremail-input"
           className="auth__input"
+          placeholder="Ваш email"
+          minLength="6"
           required
         />
         <span className="auth__error"></span>
@@ -30,6 +32,8 @@ function Register() {
           name="userPassword"
           id="userpassword-input"
           className="auth__input"
+          placeholder="Введите пароль"
+          minLength="6"
           required
         />
         <span className="auth__error"></span>

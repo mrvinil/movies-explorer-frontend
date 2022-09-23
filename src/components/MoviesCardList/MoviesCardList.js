@@ -7,12 +7,7 @@ function MoviesCardList({ movies }) {
     <section className="movies">
       <ul className="movies__list">
         {
-          movies.map((data) => (
-            <MoviesCard
-              key={data.name}
-              {...data}
-            />
-          ))
+          movies.map((data) => (<MoviesCard key={data.name} {...data} />))
         }
       </ul>
       <button className="movies__pagination btn" type="button">Ещё</button>

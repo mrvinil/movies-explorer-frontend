@@ -71,6 +71,22 @@
   padding: 15px;
 }
 
+.auth__input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.auth__input:focus::-moz-placeholder {
+  color: transparent;
+}
+
+.auth__input:focus:-moz-placeholder {
+  color: transparent;
+}
+
+.auth__input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
 .auth__input_type_error {
   color: var(--color__red);
 }

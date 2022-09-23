@@ -19,6 +19,9 @@ function Register() {
           name="userName"
           id="username-input"
           className="auth__input"
+          placeholder="Ваше имя"
+          minLength="2"
+          maxLength="30"
           required
         />
         <span className="auth__error"></span>
@@ -30,6 +33,8 @@ function Register() {
           name="userEmail"
           id="useremail-input"
           className="auth__input"
+          placeholder="Ваш email"
+          minLength="6"
           required
         />
         <span className="auth__error"></span>
@@ -41,6 +46,8 @@ function Register() {
           name="userPassword"
           id="userpassword-input"
           className="auth__input auth__input_type_error"
+          placeholder="Придумайте пароль"
+          minLength="6"
           required
         />
         <span className="auth__error auth__error_active">Что-то пошло не так...</span>
