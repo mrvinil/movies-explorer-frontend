@@ -1,0 +1,20 @@
+.movies__label-favorite_remove {
+  opacity: 0;
+  position: absolute;
+  color: transparent;
+  font-size: 0;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+  transition: .3s ease;
+  background: url(../../images/icons/icon__favorite_delete.svg) no-repeat;
+}
+.movies__img-wrap:hover .movies__label-favorite_remove {
+  opacity: 1;
+  transition: .3s ease;
+}

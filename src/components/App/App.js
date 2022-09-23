@@ -6,7 +6,8 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
-import { moviesData } from '../../utils/utils';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import { moviesData, favoriteMoviesData } from '../../utils/utils';
 
 function App() {
   const [ isNavigationMenuOpen, setIsNavigationMenuOpen ] = React.useState(false);
@@ -45,34 +46,46 @@ function App() {
   }
 
   return (
-      <Routes>
-        <Route path="/signup" element={<Register />} />
-        <Route path="/signin" element={<Login />} />
-        <Route path="/" element={<Main />} />
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              isNavigationMenuOpen={isNavigationMenuOpen}
-              isNavigationButtonClass={isNavigationButtonClass}
-              handleOpenNavigationMenu={handleOpenNavigationMenu}
-              onClose={closeAllPopups}
-            />
-          }
-        />
-        <Route
-          path="/movies"
-          element={
-            <Movies
-              isNavigationMenuOpen={isNavigationMenuOpen}
-              isNavigationButtonClass={isNavigationButtonClass}
-              handleOpenNavigationMenu={handleOpenNavigationMenu}
-              onClose={closeAllPopups}
-              movies={moviesData}
-            />
-          }
-        />
-      </Routes>
+    <Routes>
+      <Route path="/signup" element={<Register />} />
+      <Route path="/signin" element={<Login />} />
+      <Route path="/" element={<Main />} />
+      <Route
+        path="/profile"
+        element={
+          <Profile
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isNavigationButtonClass={isNavigationButtonClass}
+            handleOpenNavigationMenu={handleOpenNavigationMenu}
+            onClose={closeAllPopups}
+          />
+        }
+      />
+      <Route
+        path="/movies"
+        element={
+          <Movies
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isNavigationButtonClass={isNavigationButtonClass}
+            handleOpenNavigationMenu={handleOpenNavigationMenu}
+            onClose={closeAllPopups}
+            movies={moviesData}
+          />
+        }
+      />
+      <Route
+        path="/saved-movies"
+        element={
+          <SavedMovies
+            isNavigationMenuOpen={isNavigationMenuOpen}
+            isNavigationButtonClass={isNavigationButtonClass}
+            handleOpenNavigationMenu={handleOpenNavigationMenu}
+            onClose={closeAllPopups}
+            movies={favoriteMoviesData}
+          />
+        }
+      />
+    </Routes>
   );
 }
 
