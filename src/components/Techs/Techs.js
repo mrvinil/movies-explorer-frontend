@@ -3,8 +3,8 @@ import './Techs.css';
 
 function Techs() {
   return (
-    <div className="container-fluid theme_dark">
-      <section className="tech container">
+    <section className="container-fluid theme_dark">
+      <div className="tech container">
         <h2 className="section-title">Технологии</h2>
         <div className="tech__text">
           <h3 className="tech__text-title">7 технологий</h3>
@@ -19,8 +19,8 @@ function Techs() {
           <li className="tech__skills-item">Express.js</li>
           <li className="tech__skills-item">mongoDB</li>
         </ul>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 
