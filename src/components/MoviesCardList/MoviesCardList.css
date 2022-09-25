@@ -1,0 +1,45 @@
+/*MOVIES-LIST =========================*/
+.movies {
+  display: grid;
+  gap: 78px;
+  padding: 70px 0 78px;
+}
+
+.movies__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 60px 30px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.movies__pagination {
+  width: 100%;
+  height: 36px;
+  border: none;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  background: #2F2F2F;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  color: var(--color__white);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+@media (max-width: 768px) {
+  .movies__list {
+    gap: 47px 30px;
+  }
+}
+
+@media (max-width: 424px) {
+  .movies__list {
+    gap: 39px;
+  }
+}
+/*========================= MOVIES-LIST*/

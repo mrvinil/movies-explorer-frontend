@@ -1,0 +1,72 @@
+:root {
+  --color__white: #fff;
+  --color__black: #202020;
+  --color__dark: #272727;
+  --color__gray: #8B8B8B;
+  --color__gray_dark: #303030;
+  --color__gray_light: #DADADA;
+  --color__blue: #4285F4;
+  --color__blue_dark: #073042;
+  --color__green: #3DDC84;
+  --color__red: #EE3465;
+
+  --width-container_1280: 1140px;
+  --width-container_768_big: 708px;
+  --width-container_768: 668px;
+  --width-container_320_big: 292px;
+  --width-container_320: 284px;
+}
+
+.body {
+  font-family: 'Inter', Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  color: var(--color__white);
+  background-color: var(--color__black);
+}
+
+.link {
+  transition: .2s ease;
+}
+
+.link:hover {
+  opacity: .7;
+}
+
+.btn {
+  transition: .2s ease;
+}
+
+.btn:hover {
+  opacity: .8;
+}
+
+.container {
+  max-width: var(--width-container_1280);
+  margin: 0 auto;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+.container-fluid {
+  max-width: 100%;
+  width: 100%;
+}
+
+.logo {
+  background: url(../../images/logo.svg) no-repeat;
+  background-size: cover;
+  width: 38px;
+  height: 38px;
+  transition: .2s ease;
+}
+
+@media (max-width: 424px) {
+  .logo {
+    justify-self: center;
+  }
+}
