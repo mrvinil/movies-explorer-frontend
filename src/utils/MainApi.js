@@ -64,7 +64,7 @@ class Api {
   }
 
   // запрос фильмов
-  getMovies() {
+  getSavedMovies() {
     return fetch(`${this._baseUrl}/movies`, {
       headers: { authorization: `Bearer ${localStorage.getItem('jwt')}`, }
     })
