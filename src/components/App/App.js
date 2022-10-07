@@ -124,6 +124,42 @@ function App() {
       .finally(() => setIsLoader(false));
   }
 
+  // функция сохранения фильма
+  function handleSaveMovie(movie) {
+    mainApi
+      .addMovie(movie)
+      .then(newMovie => setSavedMoviesList([newMovie, ...savedMoviesList]))
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      );
+  }
+
+  // функция удаления фильма
+  function handleDeleteMovie(movie) {
+    const savedMovie = savedMoviesList.find(
+      (item) => item.movieId === movie.id || item.movieId === movie.movieId
+    );
+    mainApi
+      .deleteMovie(savedMovie._id)
+      .then(() => {
+        const newMoviesList = savedMoviesList.filter(m => {
+          return !(movie.id === m.movieId || movie.movieId === m.movieId);
+        });
+        setSavedMoviesList(newMoviesList);
+      })
+      .catch(err =>
+        setIsInfoTooltip({
+          isOpen: true,
+          successful: false,
+          text: err,
+        })
+      );
+  }
+
   // проверка токена и авторизация пользователя
   useEffect(() => {
     const path = location.pathname;
@@ -170,6 +206,25 @@ function App() {
         .finally(() => setIsLoader(false));
     }
   }, [loggedIn]);
+
+  // получение массива сохраненных фильмов
+  useEffect(() => {
+    if (loggedIn && currentUser) {
+      mainApi
+        .getSavedMovies()
+        .then(data => {
+          const UserMoviesList = data.filter(m => m.owner === currentUser._id);
+          setSavedMoviesList(UserMoviesList);
+        })
+        .catch(err =>
+          setIsInfoTooltip({
+            isOpen: true,
+            successful: false,
+            text: err,
+          })
+        );
+    }
+  }, [currentUser, loggedIn]);
 
   // закрытие попапа по кнопке Esc
   useEffect(() => {

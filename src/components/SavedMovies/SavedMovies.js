@@ -1,26 +1,87 @@
 import React from 'react';
-import Header from "../Header/Header";
-import Navigation from '../Navigation/Navigation';
+import './SavedMovies.css';
+import { useState, useContext, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import './SavedMovies.css';
+import {
+  filterMovies, // фильтрация начального массива всех фильмов по запросу
+  filterShortMovies, // фильтрация по длительности
+} from '../../utils/utils.js';
 
-function SavedMovies({ isNavigationMenuOpen, isNavigationButtonClass, handleOpenNavigationMenu, movies }) {
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+
+function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  const [shortMovies, setShortMovies] = useState(false); // состояние чекбокса
+  const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
+  const [showedMovies, setShowedMovies] = useState(savedMoviesList); // показываемые фильмы
+  const [filteredMovies, setFilteredMovies] = useState(showedMovies); // отфильтрованные по запросу фильмы
+
+  // функция поиска по запросу
+  function handleSearchSubmit(inputValue) {
+    const moviesList = filterMovies(savedMoviesList, inputValue, shortMovies);
+    if (moviesList.length === 0) {
+      setNotFound(true);
+      setIsInfoTooltip({
+        isOpen: true,
+        successful: false,
+        text: 'Ничего не найдено.',
+      });
+    } else {
+      setNotFound(false);
+      setFilteredMovies(moviesList);
+      setShowedMovies(moviesList);
+    }
+  }
+
+  // функция состояния чекбокса
+  function handleShortFilms() {
+    if (!shortMovies) {
+      setShortMovies(true);
+      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, true);
+      setShowedMovies(filterShortMovies(filteredMovies));
+      filterShortMovies(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
+    } else {
+      setShortMovies(false);
+      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, false);
+      filteredMovies.length === 0 ? setNotFound(true) : setNotFound(false);
+      setShowedMovies(filteredMovies);
+    }
+  }
+
+  // проверка чекбокса в локальном хранилище
+  useEffect(() => {
+    if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
+      setShortMovies(true);
+      setShowedMovies(filterShortMovies(savedMoviesList));
+    } else {
+      setShortMovies(false);
+      setShowedMovies(savedMoviesList);
+    }
+  }, [savedMoviesList, currentUser]);
+
+  useEffect(() => {
+    setFilteredMovies(savedMoviesList);
+    savedMoviesList.length !== 0 ? setNotFound(false) : setNotFound(true);
+  }, [savedMoviesList]);
+
   return (
     <>
-      <Header>
-        <Navigation
-          isNavigationMenuOpen={isNavigationMenuOpen}
-          isNavigationButtonClass={isNavigationButtonClass}
-          isOpen={handleOpenNavigationMenu}
-        />
-      </Header>
       <main className="container">
-        <SearchForm />
-        <MoviesCardList
-          movies={movies}
+        <SearchForm
+          handleSearchSubmit={handleSearchSubmit}
+          handleShortFilms={handleShortFilms}
+          shortMovies={shortMovies}
         />
+        {!NotFound && (
+          <MoviesCardList
+            moviesList={showedMovies}
+            savedMoviesList={savedMoviesList}
+            onDeleteClick={onDeleteClick}
+          />
+        )}
       </main>
       <Footer />
     </>
