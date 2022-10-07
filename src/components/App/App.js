@@ -46,7 +46,7 @@ function App() {
   function closeAllPopups() {
     setIsNavigationMenuOpen(false);
     setIsNavigationButtonClass('');
-    setIsInfoTooltip({ ... isInfoTooltip, isOpen: false});
+    setIsInfoTooltip({ ...isInfoTooltip, isOpen: false});
   }
 
   // функция регистрации пользователя
@@ -188,7 +188,8 @@ function App() {
     } else {
       setLoad(true);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   // получение информации о пользователе
   useEffect(() => {
@@ -239,7 +240,8 @@ function App() {
         document.removeEventListener('keydown', closeByEscape);
       }
     }
-  }, [popupIsOpen])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[popupIsOpen])
 
   return (
     <>
