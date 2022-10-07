@@ -33,7 +33,6 @@
   line-height: 9px;
   cursor: pointer;
   transition: .3s ease;
-  z-index: 100;
 }
 
 .movies__img-wrap:hover .movies__label-favorite {
