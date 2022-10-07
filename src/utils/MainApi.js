@@ -1,4 +1,4 @@
-import {API_BASE_URL} from './constants';
+import { API_BASE_URL } from './constants';
 
 class Api {
   constructor({ baseUrl }) {
@@ -6,11 +6,9 @@ class Api {
   }
 
   // проверяем статус запроса
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status} - ${res.message}`);
+  async _checkResponse(res) {
+    const result = await res.json();
+    return res.ok ? result : Promise.reject(`Ошибка ${res.status} - ${res.message}`);
   }
 
   // регистрация пользователя
@@ -27,18 +25,9 @@ class Api {
   loginUser(email, password) {
     return fetch(`${this._baseUrl}/signin`, {
       method: 'POST',
-      header: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    })
-      .then(res => this._checkResponse(res));
-  }
-
-  // выход из аккаунта
-  logoutUser() {
-    return fetch(`${this._baseUrl}/signout`, {
-      method: 'POST',
-    })
-      .then(res => this._checkResponse(res));
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then(res => this._checkResponse(res));
   }
 
   // запрос данных пользователя

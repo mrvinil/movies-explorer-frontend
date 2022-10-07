@@ -6,11 +6,9 @@ class MoviesApi {
   }
 
   // проверяем статус запроса
-  _checkResponse(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status} - ${res.message}`);
+  async _checkResponse(res) {
+    const result = await res.json();
+    return res.ok ? result : Promise.reject(`Ошибка ${res.status} - ${res.message}`);
   }
 
   // получение фильмов
