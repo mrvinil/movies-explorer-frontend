@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {Navigate, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
@@ -259,8 +259,8 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/signup" element={<Register handleRegister={handleRegister} />}/>
-            <Route path="/signin" element={<Login handleLogin={handleLogin} />}/>
+            <Route path="/signup" element={!loggedIn ? <Register handleRegister={handleRegister}/> : <Navigate to="/movies" replace />}/>
+            <Route path="/signin" element={!loggedIn ? <Login handleLogin={handleLogin}/> : <Navigate to="/movies" replace />}/>
             <Route
               path="/profile"
               element={
