@@ -23,6 +23,7 @@ function MoviesCard({ movie, saved, onLikeClick, onDeleteClick }) {
   return (
     <li className="movies__item">
       <div className="movies__img-wrap">
+        <a href={movie.trailerLink} className="movies__img-link link" target="_blank"></a>
         <img src={movie.image} alt={movie.nameRU} className="movies__item-img"/>
         <span
           className={`${savedMoviesUrl ? removeMovieFavoriteButtonClass : defaultMovieFavoriteButtonClass}`}

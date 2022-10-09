@@ -1,9 +1,11 @@
 /*MOVIES-CARD =========================*/
 .movies__img-wrap {
   position: relative;
+  z-index: 10;
 }
 
 .movies__item-img {
+  position: relative;
   display: block;
   width: 100%;
   height: 203px;
@@ -13,7 +15,15 @@
   border-radius: 6px;
 }
 
+.movies__img-link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 30;
+}
+
 .movies__label-favorite {
+  z-index: 100;
   opacity: 0;
   position: absolute;
   top: 14px;

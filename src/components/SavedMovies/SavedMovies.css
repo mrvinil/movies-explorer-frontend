@@ -1,4 +1,5 @@
 .movies__label-favorite_remove {
+  z-index: 100;
   opacity: 0;
   position: absolute;
   color: transparent;
