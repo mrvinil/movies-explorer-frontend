@@ -129,11 +129,11 @@ function App() {
     mainApi
       .addMovie(movie)
       .then(newMovie => setSavedMoviesList([newMovie, ...savedMoviesList]))
-      .catch(err =>
+      .catch(() =>
         setIsInfoTooltip({
           isOpen: true,
           successful: false,
-          text: err,
+          text: 'Некорректные данные для сохранения фильма',
         })
       );
   }
