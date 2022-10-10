@@ -19,3 +19,9 @@
   opacity: 1;
   transition: .3s ease;
 }
+
+@media (max-width: 768px) {
+  .movies__label-favorite_remove {
+    opacity: 1;
+  }
+}

@@ -115,6 +115,20 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
+
+  .movies__label-favorite {
+    opacity: 1;
+  }
+
+  .movies__label-favorite:hover {
+    color: var(--color__white);
+    background: #313131;
+    transition: .3s ease;
+  }
+
+  .movies__label-favorite_active:hover {
+    background: url(../../images/icons/icon__favorite_delete.svg) no-repeat;
+  }
 }
 
 @media (max-width: 424px) {
