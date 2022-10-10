@@ -10,6 +10,7 @@
   opacity: 0;
   transition: all .5s linear;
   background-color: rgba(0, 0, 0, .5);
+  z-index: 200;
 }
 
 .popup_opened {
