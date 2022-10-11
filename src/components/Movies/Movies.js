@@ -1,135 +1,110 @@
 import React from 'react';
+import { MoviesContext } from "../../contexts/MoviesContext";
 import { useState, useContext, useEffect } from 'react';
-import {
-  transformMovies, // для адаптирования полей под свой бэкенд
-  filterMovies, // фильтрация начального массива всех фильмов по запросу
-  filterShortMovies, // фильтрация по длительности
-} from '../../utils/utils.js';
-import moviesApi from '../../utils/MoviesApi.js';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
 import Footer from '../Footer/Footer';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import { useMediaQuery } from 'react-responsive';
+import {
+  EXPAND_CARDS_QUANTITY_DESKTOP,
+  EXPAND_CARDS_QUANTITY_MOBILE,
+  EXPAND_CARDS_QUANTITY_TABLET,
+  INITIAL_CARDS_QUANTITY_DESKTOP,
+  INITIAL_CARDS_QUANTITY_MOBILE,
+  INITIAL_CARDS_QUANTITY_TABLET,
+} from '../../utils/constants';
 
-function Movies({ setIsLoader, setIsInfoTooltip, savedMoviesList, onLikeClick, onDeleteClick }) {
-  const currentUser = useContext(CurrentUserContext);
+const Movies = ({ onSearch, onLike, onDislike, isLoading }) => {
+  const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 1279px)",});
+  const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
+  const [ itemsCount, setItemsCount ] = useState(INITIAL_CARDS_QUANTITY_MOBILE);
 
-  const [shortMovies, setShortMovies] = useState(false); // состояние чекбокса
-  const [initialMovies, setInitialMovies] = useState([]); // фильмы полученные с запроса
-  const [filteredMovies, setFilteredMovies] = useState([]); // отфильтрованные по чекбоксу и запросу фильмы
-  const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
-  const [isAllMovies, setIsAllMovies] = useState([]); // все фильмы от сервера, для единоразового обращения к нему
+  const {
+    filteredMovies,
+    moviesKeyword,
+    setMoviesKeyword,
+    moviesIsShort,
+    setMoviesIsShort,
+    moviesIsSearched,
+  } = useContext(MoviesContext);
 
-  // поиск по массиву и установка состояния
-  function handleSetFilteredMovies(movies, userQuery, shortMoviesCheckbox) {
-    const moviesList = filterMovies(movies, userQuery, shortMoviesCheckbox);
-    if (moviesList.length === 0) {
-      setIsInfoTooltip({
-        isOpen: true,
-        successful: false,
-        text: 'Ничего не найдено.',
-      });
-      setNotFound(true);
-    } else {
-      setNotFound(false);
-    }
-    setInitialMovies(moviesList);
-    setFilteredMovies(
-      shortMoviesCheckbox ? filterShortMovies(moviesList) : moviesList
-    );
-    localStorage.setItem(
-      `${currentUser.email} - movies`,
-      JSON.stringify(moviesList)
-    );
-  }
-
-  // поиск по запросу
-  function handleSearchSubmit(inputValue) {
-    localStorage.setItem(`${currentUser.email} - movieSearch`, inputValue);
-    localStorage.setItem(`${currentUser.email} - shortMovies`, shortMovies);
-
-    if (isAllMovies.length === 0) {
-      setIsLoader(true);
-      moviesApi
-        .getMovies()
-        .then(movies => {
-          setIsAllMovies(movies);
-          handleSetFilteredMovies(
-            transformMovies(movies),
-            inputValue,
-            shortMovies
-          );
-        })
-        .catch(() =>
-          setIsInfoTooltip({
-            isOpen: true,
-            successful: false,
-            text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.',
-          })
-        )
-        .finally(() => setIsLoader(false));
-    } else {
-      handleSetFilteredMovies(isAllMovies, inputValue, shortMovies);
-    }
-  }
-
-  // состояние чекбокса
-  function handleShortFilms() {
-    setShortMovies(!shortMovies);
-    if (!shortMovies) {
-      setFilteredMovies(filterShortMovies(initialMovies));
-    } else {
-      setFilteredMovies(initialMovies);
-    }
-    localStorage.setItem(`${currentUser.email} - shortMovies`, !shortMovies);
-  }
-
-  // проверка чекбокса в локальном хранилище
   useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - shortMovies`) === 'true') {
-      setShortMovies(true);
-    } else {
-      setShortMovies(false);
-    }
-  }, [currentUser]);
-
-  // рендер фильмов из локального хранилища
-  useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - movies`)) {
-      const movies = JSON.parse(
-        localStorage.getItem(`${currentUser.email} - movies`)
-      );
-      setInitialMovies(movies);
-      if (
-        localStorage.getItem(`${currentUser.email} - shortMovies`) === 'true'
-      ) {
-        setFilteredMovies(filterShortMovies(movies));
-      } else {
-        setFilteredMovies(movies);
+    const initialQuantity = (() => {
+      if (isMobile) {
+        return INITIAL_CARDS_QUANTITY_MOBILE;
       }
+      if (isTablet) {
+        return INITIAL_CARDS_QUANTITY_TABLET;
+      }
+      if (isDesktop) {
+        return INITIAL_CARDS_QUANTITY_DESKTOP;
+      }
+    })();
+    setItemsCount(initialQuantity);
+  }, [filteredMovies, isMobile, isTablet, isDesktop]);
+
+  const cardsElements = filteredMovies.map((card) => (
+    <MoviesCard
+      card={card}
+      key={card.id}
+      onLike={onLike}
+      onDislike={onDislike}
+      buttonType='like'
+    />
+  ));
+
+  const shownCardElements = cardsElements.slice(0, itemsCount);
+
+  const handleExpand = () => {
+    const expandQuantity = (() => {
+      if (isMobile) {
+        return EXPAND_CARDS_QUANTITY_MOBILE;
+      }
+      if (isTablet) {
+        return EXPAND_CARDS_QUANTITY_TABLET;
+      }
+      if (isDesktop) {
+        return EXPAND_CARDS_QUANTITY_DESKTOP;
+      }
+    })();
+    setItemsCount(itemsCount + expandQuantity);
+  };
+
+  const isExpandActive = (() => {
+    return shownCardElements.length === cardsElements.length ? false : true;
+  })();
+
+  const cardsMessage = (() => {
+    if (!moviesIsSearched) {
+      return <span></span>;
+    } else if (!isLoading && cardsElements.length === 0) {
+      return <span>Ничего не найдено</span>;
     }
-  }, [currentUser]);
+  })();
 
   return (
     <>
       <main className="container">
         <SearchForm
-          handleSearchSubmit={handleSearchSubmit}
-          handleShortFilms={handleShortFilms}
-          shortMovies={shortMovies}
+          onSubmit={onSearch}
+          keyword={moviesKeyword}
+          setKeyword={setMoviesKeyword}
+          isShort={moviesIsShort}
+          setIsShort={setMoviesIsShort}
         />
-        {!NotFound && (
-          <MoviesCardList
-            moviesList={filteredMovies}
-            savedMoviesList={savedMoviesList}
-            onLikeClick={onLikeClick}
-            onDeleteClick={onDeleteClick}
-          />
+        {isLoading && <Preloader />}
+        {cardsMessage}
+        <MoviesCardList cardsElements={shownCardElements} />
+        {isExpandActive && (
+          <button className="movies__pagination btn" type="button" onClick={handleExpand}>Ещё</button>
         )}
       </main>
       <Footer />
     </>
   );
-}
+};
 
 export default Movies;

@@ -1,40 +1,37 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import './SearchForm.css';
 import iconSearch from '../../images/icons/icon__search.svg';
 import iconFind from '../../images/icons/icon__find.svg';
-import {useLocation} from 'react-router-dom';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import useFormWithValidation from '../../utils/useFormWithValidation';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
-function SearchForm({ handleSearchSubmit, handleShortFilms, shortMovies }) {
-  const currentUser = useContext(CurrentUserContext);
-  const location = useLocation();
+const SearchForm = ({ onSubmit, keyword, setKeyword, isShort, setIsShort }) => {
+  const [errMessage, setErrMessage] = useState('');
 
-  const { values, handleChange, isValid, setIsValid } = useFormWithValidation();
-
-  const [errorQuery, setErrorQuery] = useState('');
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    isValid ? handleSearchSubmit(values.search) : setErrorQuery('Введите название фильма');
-  }
-
-  useEffect(() => {
-    setErrorQuery('')
-  }, [isValid]);
-
-  //состояние инпута из локального хранилища
-  useEffect(() => {
-    if (location.pathname === '/movies' && localStorage.getItem(`${currentUser.email} - movieSearch`)) {
-      values.search = localStorage.getItem(`${currentUser.email} - movieSearch`);
-      setIsValid(true);
+  const isValid = (() => {
+    if (keyword.length > 0) {
+      return true;
+    } else {
+      return false;
     }
-  }, [currentUser]);
+  })();
+
+  const handleChangeSearch = (evt) => {
+    setKeyword(evt.target.value);
+  };
+
+  const handleSearch = (evt) => {
+    evt.preventDefault();
+    if (isValid) {
+      setErrMessage('');
+      onSubmit();
+    } else {
+      setErrMessage("Введите название фильма");
+    }
+  };
 
   return (
     <section className="search">
-      <form name="search" className="search__form" noValidate onSubmit={handleSubmit}>
+      <form name="search" className="search__form" noValidate onSubmit={handleSearch}>
         <div className="search__label">
           <img src={iconSearch} className="search__icon" alt="Поиск"/>
         </div>
@@ -44,19 +41,16 @@ function SearchForm({ handleSearchSubmit, handleShortFilms, shortMovies }) {
           className="search__input"
           placeholder="Фильм"
           autoComplete="off"
-          value={values.search || ''}
-          onChange={handleChange}
+          value={keyword}
+          onChange={handleChangeSearch}
           required
         />
-        <span className={`search__error ${errorQuery && 'search__error_active'}`}>{errorQuery}</span>
+        <span className={`search__error ${errMessage && 'search__error_active'}`}>{errMessage}</span>
         <button className="search__button btn" type="submit">
           <img src={iconFind} className="search__icon" alt="Найти"/>
         </button>
       </form>
-      <FilterCheckbox
-        shortMovies={shortMovies}
-        handleShortFilms={handleShortFilms}
-      />
+      <FilterCheckbox isShort={isShort} setIsShort={setIsShort}>Короткометражки</FilterCheckbox>
     </section>
   );
 }

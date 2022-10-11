@@ -1,42 +1,28 @@
-import { useState, useCallback } from 'react';
-import isEmail from 'validator/es/lib/isEmail';
+import { useCallback, useState } from 'react';
 
-export default function useFormWithValidation() {
+function useFormWithValidation() {
+  // Переменные состояния
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
-
-  const handleChange = (e) => {
-    const input = e.target;
-    const { value, name } = input;
-    // const validNamePattern = /^[a-zA-Zа-яА-Я- ]+$/.test(input.value);
-
-    if (name === 'name' && input.validity.patternMismatch) {
-      input.setCustomValidity('Имя должно содержать только латиницу, кириллицу, пробел или дефис.')
-    } else {
-      input.setCustomValidity('');
-    }
-
-    if (name === 'email') {
-      if (!isEmail(value)) {
-        input.setCustomValidity('Некорректный адрес почты.');
-      } else {
-        input.setCustomValidity('');
-      }
-    }
-
-    setValues({ ...values, [name]: value }); // универсальный обработчик полей
-    setErrors({ ...errors, [name]: input.validationMessage }); // ошибок
-    setIsValid(input.closest('form').checkValidity()); // проверка валидности
-  };
-  const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newIsValid = false) => { // это метод для сброса формы, полей, ошибок
-      setValues(newValues);
-      setErrors(newErrors);
-      setIsValid(newIsValid);
+  const [isValid, setIsValid] = useState({});
+  // Обработчик ввода в поле
+  function handleChange(evt) {
+    const name = evt.target.name;
+    const value = evt.target.value;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: evt.target.validationMessage });
+    setIsValid(evt.target.closest('form').checkValidity());
+  }
+  // Сброс форм
+  const resetForms = useCallback(
+    (updatedValues = {}, updatedErrors = {}, updatedIsValid = false) => {
+      setValues(updatedValues);
+      setErrors(updatedErrors);
+      setIsValid(updatedIsValid);
     },
     [setValues, setErrors, setIsValid]
   );
-
-  return { values, errors, isValid, handleChange, resetForm, setIsValid };
+  return { values, errors, isValid, handleChange, resetForms };
 }
+
+export default useFormWithValidation;

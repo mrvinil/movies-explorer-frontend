@@ -1,34 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Profile.css';
 import { useEffect, useContext } from 'react';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import { UserContext } from '../../contexts/UserContext';
 import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Profile({ handleSignOut, handleProfile }) {
-  const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
-
+function Profile({ onLogout, onUpdateProfile }) {
+  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
+  // Переменные состояния
+  const [isUserDataChanged, setUserDataChanged] = useState(false);
   // подписка на контекст
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(UserContext);
+  const { name, email } = currentUser;
 
-  const requirementValidity = (!isValid || (currentUser.name === values.name && currentUser.email === values.email));
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    handleProfile(values);
-  }
-
-  // после загрузки текущего пользователя из API
-  // его данные будут использованы в управляемых компонентах.
+  // Изменились ли данные в форме
   useEffect(() => {
-    if (currentUser) {
-      resetForm(currentUser, {}, true);
-    }
-  }, [currentUser, resetForm]);
+    values.name === name && values.email === email
+      ? setUserDataChanged(false)
+      : setUserDataChanged(true);
+  }, [values]);
+
+  // Подстановка данных в форму
+  useEffect(() => {
+    currentUser && resetForms(currentUser, {}, true);
+  }, [currentUser, resetForms]);
+
+  // Обработчик обновления профиля
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onUpdateProfile({ name: values.name, email: values.email });
+  };
 
   return (
     <>
       <section className="profile container">
-        <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
+        <h1 className="profile__title">{`Привет, ${name}!`}</h1>
         <form className="profile__info" name="profile" noValidate onSubmit={handleSubmit}>
           <div className="profile__item-wrap">
 
@@ -62,8 +67,8 @@ function Profile({ handleSignOut, handleProfile }) {
 
           </div>
           <fieldset className="profile__controls">
-            <button className={`profile__button-edit link ${requirementValidity && 'profile__button-edit_disabled'}`} type="submit" disabled={requirementValidity}>Редактировать</button>
-            <button className="profile__button-logout link" type="submit" onClick={handleSignOut}>Выйти из аккаунта</button>
+            <button className={`profile__button-edit link ${!isUserDataChanged || !isValid ? 'profile__button-edit_disabled' : ''}`} type="submit" disabled={!isUserDataChanged || !isValid}>Редактировать</button>
+            <button className="profile__button-logout link" type="submit" onClick={onLogout}>Выйти из аккаунта</button>
           </fieldset>
         </form>
       </section>

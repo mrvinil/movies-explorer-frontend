@@ -1,27 +1,11 @@
-export const API_BASE_URL = 'https://api.walshop.ru';
-// export const API_BASE_URL = 'http://localhost:9000';
-export const API_MOVIES_URL = 'https://api.nomoreparties.co/beatfilm-movies';
-export const SHORTMOVIES_DURATION = 40;
-export const WINDOW_SIZE = {
-  desktop: {
-    width: 917,
-    cards: {
-      total: 12,
-      more: 3,
-    },
-  },
-  tablet: {
-    width: 583,
-    cards: {
-      total: 8,
-      more: 2,
-    },
-  },
-  mobile: {
-    width: 583,
-    cards: {
-      total: 5,
-      more: 2,
-    },
-  },
-};
+// export const API_BASE_URL = 'https://api.walshop.ru';
+export const API_BASE_URL = 'http://localhost:3001';
+export const API_MOVIES_URL = 'https://api.nomoreparties.co';
+export const UNAUTHORIZED_ERROR_CODE = 401;
+export const SHORT_MOVIE_MIN_DURATION = 40;
+export const INITIAL_CARDS_QUANTITY_MOBILE = 5;
+export const INITIAL_CARDS_QUANTITY_TABLET = 8;
+export const INITIAL_CARDS_QUANTITY_DESKTOP = 12;
+export const EXPAND_CARDS_QUANTITY_MOBILE = 2;
+export const EXPAND_CARDS_QUANTITY_TABLET = 2;
+export const EXPAND_CARDS_QUANTITY_DESKTOP = 3;

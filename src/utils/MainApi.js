@@ -1,105 +1,82 @@
 import { API_BASE_URL } from './constants';
 
-class Api {
-  constructor({ baseUrl }) {
-    this._baseUrl = baseUrl;
-  }
-
-  // проверяем статус запроса
-  async _checkResponse(res) {
-    const result = await res.json();
-    return res.ok ? result : Promise.reject(`Ошибка ${res.status} - ${res.message}`);
-  }
-
-  // регистрация пользователя
-  registerUser(name, email, password) {
-    return fetch(`${this._baseUrl}/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
-    })
-      .then(res => this._checkResponse(res));
-  }
-
-  // авторизация пользователя
-  loginUser(email, password) {
-    return fetch(`${this._baseUrl}/signin`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    }).then(res => this._checkResponse(res));
-  }
-
-  // запрос данных пользователя
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
-      headers: { authorization: `Bearer ${localStorage.getItem('jwt')}`, }
-    })
-      .then(res => this._checkResponse(res));
-  }
-
-  // запрос на редактирование данных пользователя
-  updateUserInfo(name, email) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      },
-      body: JSON.stringify({ name, email })
-    })
-      .then(res => this._checkResponse(res));
-  }
-
-  // запрос фильмов
-  getSavedMovies() {
-    return fetch(`${this._baseUrl}/movies`, {
-      headers: { authorization: `Bearer ${localStorage.getItem('jwt')}`, }
-    })
-      .then(res => this._checkResponse(res));
-  }
-
-  // добавление фильма в избранное
-  addMovie(data) {
-    return fetch(`${this._baseUrl}/movies`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      },
-      body: JSON.stringify({
-        movieId: data.id,
-        nameRU: data.nameRU,
-        nameEN: data.nameEN,
-        director: data.director,
-        country: data.country,
-        year: data.year,
-        duration: data.duration,
-        description: data.description,
-        trailerLink: data.trailerLink,
-        image: data.image,
-        thumbnail: data.thumbnail,
-      })
-    })
-      .then(res => this._checkResponse(res));
-  }
-
-  // удаление фильма из избранного
-  deleteMovie(data) {
-    return fetch(`${this._baseUrl}/movies/${data}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      }
-    })
-      .then(res => this._checkResponse(res));
-  }
+// проверяем статус запроса
+function _checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(res);
 }
 
-const mainApi = new Api({
-  // создаём экземпляр класса работающего с API сервера
-  baseUrl: API_BASE_URL,
-});
+// Проверка токена
+export const checkToken = (token) => {
+  return fetch(`${API_BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => _checkResponse(res));
+};
 
-export default mainApi;
+// регистрация пользователя
+export const registerUser = ({ email, password, name }) => {
+  return fetch(`${API_BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password, name }),
+  }).then((res) => _checkResponse(res));
+};
+
+// авторизация пользователя
+export const loginUser = ({ email, password }) => {
+  return fetch(`${API_BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password, email }),
+  }).then((res) => _checkResponse(res));
+};
+
+// запрос на редактирование данных пользователя
+export const updateUserInfo = ({ email, name }, token) => {
+  return fetch(`${API_BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, name }),
+  }).then((res) => _checkResponse(res));
+};
+
+// запрос фильмов
+export const getSavedMovies = (token) => {
+  return fetch(`${API_BASE_URL}/movies`, {
+    method: "GET",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => _checkResponse(res));
+};
+
+// добавление фильма в избранное
+export const saveMovie = (movie, token) => {
+  return fetch(`${API_BASE_URL}/movies`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(movie),
+  }).then((res) => _checkResponse(res));
+};
+
+// удаление фильма из избранного
+export const deleteMovie = (movieId, token) => {
+  return fetch(`${API_BASE_URL}/movies/${movieId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  }).then((res) => _checkResponse(res));
+};

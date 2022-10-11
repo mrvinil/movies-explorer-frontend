@@ -1,87 +1,51 @@
 import React from 'react';
 import './SavedMovies.css';
-import { useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import {
-  filterMovies, // фильтрация начального массива всех фильмов по запросу
-  filterShortMovies, // фильтрация по длительности
-} from '../../utils/utils.js';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import { MoviesContext } from '../../contexts/MoviesContext';
 
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
-function SavedMovies({ onDeleteClick, savedMoviesList, setIsInfoTooltip }) {
-  const currentUser = useContext(CurrentUserContext);
-
-  const [shortMovies, setShortMovies] = useState(false); // состояние чекбокса
-  const [NotFound, setNotFound] = useState(false); // если по запросу ничего не найдено - скроем фильмы
-  const [showedMovies, setShowedMovies] = useState(savedMoviesList); // показываемые фильмы
-  const [filteredMovies, setFilteredMovies] = useState(showedMovies); // отфильтрованные по запросу фильмы
-
-  // функция поиска по запросу
-  function handleSearchSubmit(inputValue) {
-    const moviesList = filterMovies(savedMoviesList, inputValue, shortMovies);
-    if (moviesList.length === 0) {
-      setNotFound(true);
-      setIsInfoTooltip({
-        isOpen: true,
-        successful: false,
-        text: 'Ничего не найдено.',
-      });
-    } else {
-      setNotFound(false);
-      setFilteredMovies(moviesList);
-      setShowedMovies(moviesList);
-    }
-  }
-
-  // функция состояния чекбокса
-  function handleShortFilms() {
-    if (!shortMovies) {
-      setShortMovies(true);
-      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, true);
-      setShowedMovies(filterShortMovies(filteredMovies));
-      filterShortMovies(filteredMovies).length === 0 ? setNotFound(true) : setNotFound(false);
-    } else {
-      setShortMovies(false);
-      localStorage.setItem(`${currentUser.email} - shortSavedMovies`, false);
-      filteredMovies.length === 0 ? setNotFound(true) : setNotFound(false);
-      setShowedMovies(filteredMovies);
-    }
-  }
-
-  // проверка чекбокса в локальном хранилище
-  useEffect(() => {
-    if (localStorage.getItem(`${currentUser.email} - shortSavedMovies`) === 'true') {
-      setShortMovies(true);
-      setShowedMovies(filterShortMovies(savedMoviesList));
-    } else {
-      setShortMovies(false);
-      setShowedMovies(savedMoviesList);
-    }
-  }, [savedMoviesList, currentUser]);
+const SavedMovies = ({ onDislike, onSearch }) => {
+  const {
+    filteredSavedMovies,
+    savedMoviesKeyword,
+    setSavedMoviesKeyword,
+    savedMoviesIsShort,
+    setSavedMoviesIsShort,
+    filterSavedMovies,
+  } = useContext(MoviesContext);
 
   useEffect(() => {
-    setFilteredMovies(savedMoviesList);
-    savedMoviesList.length !== 0 ? setNotFound(false) : setNotFound(true);
-  }, [savedMoviesList]);
+    filterSavedMovies();
+    return () => {
+      setSavedMoviesKeyword("");
+      setSavedMoviesIsShort(false);
+    };
+  }, []);
+
+  const cardsElements = filteredSavedMovies.map((card) => (
+    <MoviesCard
+      card={card}
+      key={card.movieId}
+      onDislike={onDislike}
+      buttonType='dislike'
+    />
+  ));
 
   return (
     <>
       <main className="container">
         <SearchForm
-          handleSearchSubmit={handleSearchSubmit}
-          handleShortFilms={handleShortFilms}
-          shortMovies={shortMovies}
+          onSubmit={onSearch}
+          keyword={savedMoviesKeyword}
+          setKeyword={setSavedMoviesKeyword}
+          isShort={savedMoviesIsShort}
+          setIsShort={setSavedMoviesIsShort}
         />
-        {!NotFound && (
-          <MoviesCardList
-            moviesList={showedMovies}
-            savedMoviesList={savedMoviesList}
-            onDeleteClick={onDeleteClick}
-          />
-        )}
+        <MoviesCardList cardsElements={cardsElements} />
       </main>
       <Footer />
     </>

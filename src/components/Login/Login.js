@@ -2,17 +2,20 @@ import { useEffect } from 'react';
 import AuthPageWithForm from '../AuthPageWithForm/AuthPageWithForm';
 import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Login({ handleLogin }) {
-  const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
-
-  function onSubmit(e) {
-    e.preventDefault();
-    handleLogin(values);
-  }
+function Login({ onLogin }) {
+  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
 
   useEffect(() => {
-    resetForm();
-  }, [resetForm]);
+    resetForms();
+  }, [resetForms]);
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    onLogin({
+      email: values.email,
+      password: values.password,
+    });
+  };
 
   return (
     <AuthPageWithForm

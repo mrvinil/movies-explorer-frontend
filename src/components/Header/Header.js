@@ -5,7 +5,7 @@ import {useLocation} from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import Auth from '../Auth/Auth';
 
-function Header({ loggedIn, isNavigationMenuOpen, isNavigationButtonClass, handleOpenNavigationMenu }) {
+function Header({ isLoggedIn, isNavigationMenuOpen, isNavigationButtonClass, handleOpenNavigationMenu }) {
   const currentUrl = useLocation();
   const indexUrl = currentUrl.pathname === '/';
   const headerUrl =
@@ -16,7 +16,7 @@ function Header({ loggedIn, isNavigationMenuOpen, isNavigationButtonClass, handl
 
   return (
     <>
-      {headerUrl && loggedIn === true
+      {headerUrl && isLoggedIn === true
         ?
         (<header className={`${indexUrl ? 'container-fluid theme_dark_blue' : 'container'}`}>
           <div className={`${indexUrl ? 'header header_type_index container' : 'header header_type_others'}`}>
@@ -31,7 +31,7 @@ function Header({ loggedIn, isNavigationMenuOpen, isNavigationButtonClass, handl
         :
         <></>
       }
-      {indexUrl && loggedIn === false
+      {indexUrl && isLoggedIn === false
         ?
         (<header className={`${indexUrl ? 'container-fluid theme_dark_blue' : 'container'}`}>
           <div className={`${indexUrl ? 'header header_type_index container' : 'header header_type_others'}`}>

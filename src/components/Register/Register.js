@@ -2,17 +2,21 @@ import { useEffect } from 'react';
 import AuthPageWithForm from '../AuthPageWithForm/AuthPageWithForm';
 import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Register({ handleRegister }) {
-  const { values, handleChange, resetForm, errors, isValid } = useFormWithValidation();
-
-  function onSubmit(e) {
-    e.preventDefault();
-    handleRegister(values);
-  }
+const Register = ({ onRegister }) => {
+  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
 
   useEffect(() => {
-    resetForm();
-  }, [resetForm]);
+    resetForms();
+  }, [resetForms]);
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
+  };
 
   return (
     <AuthPageWithForm
@@ -72,6 +76,6 @@ function Register({ handleRegister }) {
       </label>
     </AuthPageWithForm>
   );
-}
+};
 
 export default Register;
