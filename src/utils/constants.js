@@ -1,5 +1,5 @@
-// export const API_BASE_URL = 'https://api.walshop.ru';
-export const API_BASE_URL = 'http://localhost:3001';
+export const API_BASE_URL = 'https://api.walshop.ru';
+// export const API_BASE_URL = 'http://localhost:3001';
 export const API_MOVIES_URL = 'https://api.nomoreparties.co';
 export const UNAUTHORIZED_ERROR_CODE = 401;
 export const SHORT_MOVIE_MIN_DURATION = 40;
