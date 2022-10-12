@@ -1,36 +1,76 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Profile.css';
-import Header from '../Header/Header';
-import {Link} from 'react-router-dom';
-import Navigation from '../Navigation/Navigation';
+import { useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
+import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Profile({ isNavigationMenuOpen, isNavigationButtonClass, handleOpenNavigationMenu }) {
+function Profile({ onLogout, onUpdateProfile }) {
+  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
+  // Переменные состояния
+  const [isUserDataChanged, setUserDataChanged] = useState(false);
+  // подписка на контекст
+  const { currentUser } = useContext(UserContext);
+  const { name, email } = currentUser;
+
+  // Изменились ли данные в форме
+  useEffect(() => {
+    values.name === name && values.email === email
+      ? setUserDataChanged(false)
+      : setUserDataChanged(true);
+  }, [values]);
+
+  // Подстановка данных в форму
+  useEffect(() => {
+    currentUser && resetForms(currentUser, {}, true);
+  }, [currentUser, resetForms]);
+
+  // Обработчик обновления профиля
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onUpdateProfile({ name: values.name, email: values.email });
+  };
+
   return (
     <>
-      <Header>
-        <Navigation
-          isNavigationMenuOpen={isNavigationMenuOpen}
-          isNavigationButtonClass={isNavigationButtonClass}
-          isOpen={handleOpenNavigationMenu}
-        />
-      </Header>
-
       <section className="profile container">
-        <h1 className="profile__title">Привет, Вячеслав!</h1>
-        <ul className="profile__info">
-          <li className="profile__item">
-            <p className="profile__name">Имя</p>
-            <p className="profile__value">Вячеслав</p>
-          </li>
-          <li className="profile__item">
-            <p className="profile__name">E-mail</p>
-            <p className="profile__value">i@kvs142.ru</p>
-          </li>
-        </ul>
-        <div className="profile__controls">
-          <button className="profile__button-edit link" type="button">Редактировать</button>
-          <Link to="/signin" className="profile__link-logout link">Выйти из аккаунта</Link>
-        </div>
+        <h1 className="profile__title">{`Привет, ${name}!`}</h1>
+        <form className="profile__info" name="profile" noValidate onSubmit={handleSubmit}>
+          <div className="profile__item-wrap">
+
+            <fieldset className="profile__item">
+              <label className="profile__name">Имя</label>
+              <input
+                type="text"
+                name="name"
+                className={`profile__value ${errors.name && 'profile__value_type_error'}`}
+                onChange={handleChange}
+                value={values.name || ''}
+                minLength="2"
+                maxLength="30"
+                pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
+              />
+              <span className={`profile__error ${errors.name && 'profile__error_active'}`}>{errors.name || ''}</span>
+            </fieldset>
+
+            <fieldset className="profile__item">
+              <label className="profile__name">E-mail</label>
+              <input
+                type="email"
+                name="email"
+                className={`profile__value ${errors.email && 'profile__value_type_error'}`}
+                onChange={handleChange}
+                value={values.email || ''}
+                minLength="6"
+              />
+              <span className={`profile__error ${errors.email && 'profile__error_active'}`}>{errors.email || ''}</span>
+            </fieldset>
+
+          </div>
+          <fieldset className="profile__controls">
+            <button className={`profile__button-edit link ${!isUserDataChanged || !isValid ? 'profile__button-edit_disabled' : ''}`} type="submit" disabled={!isUserDataChanged || !isValid}>Редактировать</button>
+            <button className="profile__button-logout link" type="submit" onClick={onLogout}>Выйти из аккаунта</button>
+          </fieldset>
+        </form>
       </section>
     </>
   );

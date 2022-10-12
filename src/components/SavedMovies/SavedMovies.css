@@ -1,4 +1,5 @@
 .movies__label-favorite_remove {
+  z-index: 100;
   opacity: 0;
   position: absolute;
   color: transparent;
@@ -17,4 +18,10 @@
 .movies__img-wrap:hover .movies__label-favorite_remove {
   opacity: 1;
   transition: .3s ease;
+}
+
+@media (max-width: 768px) {
+  .movies__label-favorite_remove {
+    opacity: 1;
+  }
 }

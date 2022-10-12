@@ -1,26 +1,51 @@
 import React from 'react';
-import Header from "../Header/Header";
-import Navigation from '../Navigation/Navigation';
+import './SavedMovies.css';
+import { useContext, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import './SavedMovies.css';
+import MoviesCard from '../MoviesCard/MoviesCard';
+import { MoviesContext } from '../../contexts/MoviesContext';
 
-function SavedMovies({ isNavigationMenuOpen, isNavigationButtonClass, handleOpenNavigationMenu, movies }) {
+
+const SavedMovies = ({ onDislike, onSearch }) => {
+  const {
+    filteredSavedMovies,
+    savedMoviesKeyword,
+    setSavedMoviesKeyword,
+    savedMoviesIsShort,
+    setSavedMoviesIsShort,
+    filterSavedMovies,
+  } = useContext(MoviesContext);
+
+  useEffect(() => {
+    filterSavedMovies();
+    return () => {
+      setSavedMoviesKeyword("");
+      setSavedMoviesIsShort(false);
+    };
+  }, []);
+
+  const cardsElements = filteredSavedMovies.map((card) => (
+    <MoviesCard
+      card={card}
+      key={card.movieId}
+      onDislike={onDislike}
+      buttonType='dislike'
+    />
+  ));
+
   return (
     <>
-      <Header>
-        <Navigation
-          isNavigationMenuOpen={isNavigationMenuOpen}
-          isNavigationButtonClass={isNavigationButtonClass}
-          isOpen={handleOpenNavigationMenu}
-        />
-      </Header>
       <main className="container">
-        <SearchForm />
-        <MoviesCardList
-          movies={movies}
+        <SearchForm
+          onSubmit={onSearch}
+          keyword={savedMoviesKeyword}
+          setKeyword={setSavedMoviesKeyword}
+          isShort={savedMoviesIsShort}
+          setIsShort={setSavedMoviesIsShort}
         />
+        <MoviesCardList cardsElements={cardsElements} />
       </main>
       <Footer />
     </>

@@ -30,6 +30,13 @@
   font-size: 14px;
   line-height: 17px;
   color: var(--color__blue);
+  display: flex;
+  justify-self: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 /*================== 404*/
 

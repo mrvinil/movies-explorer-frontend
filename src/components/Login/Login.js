@@ -1,7 +1,22 @@
-import React from 'react';
+import { useEffect } from 'react';
 import AuthPageWithForm from '../AuthPageWithForm/AuthPageWithForm';
+import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Register() {
+function Login({ onLogin }) {
+  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
+
+  useEffect(() => {
+    resetForms();
+  }, [resetForms]);
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    onLogin({
+      email: values.email,
+      password: values.password,
+    });
+  };
+
   return (
     <AuthPageWithForm
       name="loginForm"
@@ -11,36 +26,42 @@ function Register() {
       altTextLink="Регистрация"
       linkTo="/signup"
       id="auth-form"
+      onSubmit={onSubmit}
+      isValid={isValid}
     >
       <label className="auth__field">
         <p className="auth__input-name">E-mail</p>
         <input
           type="email"
-          name="userEmail"
+          name="email"
           id="useremail-input"
-          className="auth__input"
+          className={`auth__input ${errors.email && 'auth__input_type_error'}`}
+          onChange={handleChange}
+          value={values.email || ''}
           placeholder="Ваш email"
           minLength="6"
           required
         />
-        <span className="auth__error"></span>
+        <span className={`auth__error ${errors.email && 'auth__error_active'}`}>{errors.email || ''}</span>
       </label>
       <label className="auth__field">
         <p className="auth__input-name">Пароль</p>
         <input
           type="password"
-          name="userPassword"
+          name="password"
           id="userpassword-input"
-          className="auth__input"
+          className={`auth__input ${errors.password && 'auth__input_type_error'}`}
+          onChange={handleChange}
+          value={values.password || ''}
           placeholder="Введите пароль"
           minLength="6"
           required
         />
-        <span className="auth__error"></span>
+        <span className={`auth__error ${errors.password && 'auth__error_active'}`}>{errors.password || ''}</span>
       </label>
 
     </AuthPageWithForm>
   );
 }
 
-export default Register;
+export default Login;

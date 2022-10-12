@@ -1,13 +1,14 @@
 import React from 'react';
 import './Navigation.css';
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from 'react-router-dom';
+import UserAccount from '../UserAccount/UserAccount';
 
 const classNameLink = ({ isActive }) => (isActive ? 'header__nav-link header__nav-link_active link ' : 'header__nav-link link');
 
-function Navigation({ isNavigationMenuOpen, isNavigationButtonClass, isOpen }) {
+function Navigation({ isNavigationMenuOpen, isNavigationButtonClass, popupIsOpen }) {
   return (
     <>
-      <div className={`header__burger-btn ${isNavigationButtonClass}`} onClick={isOpen}>
+      <div className={`header__burger-btn ${isNavigationButtonClass}`} onClick={popupIsOpen}>
         <span className="header__burger-line"></span>
         <span className="header__burger-line"></span>
         <span className="header__burger-line"></span>
@@ -30,7 +31,7 @@ function Navigation({ isNavigationMenuOpen, isNavigationButtonClass, isOpen }) {
             <NavLink to="/saved-movies" className={classNameLink}>Сохранённые фильмы</NavLink>
           </li>
         </ul>
-        <Link to="/profile" className="header__nav-personal link">Аккаунт</Link>
+        <UserAccount />
       </nav>
     </>
   );

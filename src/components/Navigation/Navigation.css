@@ -24,29 +24,6 @@
   font-weight: 500;
 }
 
-.header__nav-personal {
-  position: relative;
-  display: flex;
-  gap: 17px;
-  align-items: center;
-  text-decoration: none;
-  color: var(--color__white);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
-}
-
-.header__nav-personal::after {
-  content: '';
-  position: relative;
-  top: 0;
-  right: 0;
-  background: url(../../images/icons/icon__personal.svg) no-repeat;
-  background-size: contain;
-  width: 26px;
-  height: 30px;
-}
-
 .header__burger-btn {
   display: grid;
   gap: 7px;
@@ -134,15 +111,11 @@
     border-bottom: 2px solid var(--color__white);
   }
 
-  .header__nav-personal {
-    padding-bottom: 92px;
-  }
-
   .header__burger-btn.active {
     z-index: 150;
     position: fixed;
     top: 30px;
-    right: 30px;
+    right: 15px;
     gap: 0;
     -webkit-transition: all .3s ease;
     -o-transition: all .3s ease;
@@ -191,9 +164,5 @@
   .header__nav-list {
     padding-top: 144px;
     gap: 24px;
-  }
-
-  .header__nav-personal {
-    padding-bottom: 48px;
   }
 }

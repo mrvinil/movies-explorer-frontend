@@ -82,6 +82,22 @@
   background: transparent;
 }
 
+.search__error {
+  position: absolute;
+  opacity: 0;
+  top: calc(100% + 5px);
+  left: 0;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--color__red);
+  transition: .3s;
+}
+
+.search__error_active {
+  opacity: 1;
+}
+
 @media (max-width: 424px) {
   .search__label {
     display: none;

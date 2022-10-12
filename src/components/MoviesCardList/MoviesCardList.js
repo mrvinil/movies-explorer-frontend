@@ -1,18 +1,15 @@
 import React from 'react';
 import './MoviesCardList.css';
-import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies }) {
+const MoviesCardList = ({ cardsElements }) => {
+
   return (
     <section className="movies">
       <ul className="movies__list">
-        {
-          movies.map((data) => (<MoviesCard key={data.name} {...data} />))
-        }
+        {cardsElements}
       </ul>
-      <button className="movies__pagination btn" type="button">Ещё</button>
     </section>
   );
-}
+};
 
 export default MoviesCardList;

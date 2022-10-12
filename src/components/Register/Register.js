@@ -1,7 +1,23 @@
-import React from 'react';
+import { useEffect } from 'react';
 import AuthPageWithForm from '../AuthPageWithForm/AuthPageWithForm';
+import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Register() {
+const Register = ({ onRegister }) => {
+  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
+
+  useEffect(() => {
+    resetForms();
+  }, [resetForms]);
+
+  const onSubmit = (evt) => {
+    evt.preventDefault();
+    onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
+  };
+
   return (
     <AuthPageWithForm
       name="registerForm"
@@ -11,50 +27,55 @@ function Register() {
       altTextLink="Войти"
       linkTo="/signin"
       id="reg-form"
+      onSubmit={onSubmit}
+      isValid={isValid}
     >
       <label className="auth__field">
         <p className="auth__input-name">Имя</p>
         <input
           type="text"
-          name="userName"
-          id="username-input"
-          className="auth__input"
+          name="name"
+          className={`auth__input ${errors.name && 'auth__input_type_error'}`}
+          onChange={handleChange}
+          value={values.name || ''}
           placeholder="Ваше имя"
           minLength="2"
           maxLength="30"
+          pattern="^[A-Za-zА-Яа-яЁё /s -]+$"
           required
         />
-        <span className="auth__error"></span>
+        <span className={`auth__error ${errors.name && 'auth__error_active'}`}>{errors.name || ''}</span>
       </label>
       <label className="auth__field">
         <p className="auth__input-name">E-mail</p>
         <input
           type="email"
-          name="userEmail"
-          id="useremail-input"
-          className="auth__input"
+          name="email"
+          className={`auth__input ${errors.email && 'auth__input_type_error'}`}
+          onChange={handleChange}
+          value={values.email || ''}
           placeholder="Ваш email"
           minLength="6"
           required
         />
-        <span className="auth__error"></span>
+        <span className={`auth__error ${errors.email && 'auth__error_active'}`}>{errors.email || ''}</span>
       </label>
       <label className="auth__field">
         <p className="auth__input-name">Пароль</p>
         <input
           type="password"
-          name="userPassword"
-          id="userpassword-input"
-          className="auth__input auth__input_type_error"
+          name="password"
+          className={`auth__input ${errors.password && 'auth__input_type_error'}`}
+          onChange={handleChange}
+          value={values.password || ''}
           placeholder="Придумайте пароль"
           minLength="6"
           required
         />
-        <span className="auth__error auth__error_active">Что-то пошло не так...</span>
+        <span className={`auth__error ${errors.password && 'auth__error_active'}`}>{errors.password || ''}</span>
       </label>
-
     </AuthPageWithForm>
   );
-}
+};
 
 export default Register;
