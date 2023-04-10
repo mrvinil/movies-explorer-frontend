@@ -3,7 +3,7 @@ import AuthPageWithForm from '../AuthPageWithForm/AuthPageWithForm';
 import useFormWithValidation from '../../utils/useFormWithValidation';
 
 const Register = ({ onRegister }) => {
-  const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
+  const { values, handleChange, resetForms, errors, isValid, isLoading } = useFormWithValidation();
 
   useEffect(() => {
     resetForms();
@@ -29,6 +29,7 @@ const Register = ({ onRegister }) => {
       id="reg-form"
       onSubmit={onSubmit}
       isValid={isValid}
+      isLoading={isLoading}
     >
       <label className="auth__field">
         <p className="auth__input-name">Имя</p>

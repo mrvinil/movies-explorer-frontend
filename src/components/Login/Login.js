@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import AuthPageWithForm from '../AuthPageWithForm/AuthPageWithForm';
 import useFormWithValidation from '../../utils/useFormWithValidation';
 
-function Login({ onLogin }) {
+function Login({ onLogin, isLoading }) {
   const { values, handleChange, resetForms, errors, isValid } = useFormWithValidation();
 
   useEffect(() => {
@@ -28,6 +28,7 @@ function Login({ onLogin }) {
       id="auth-form"
       onSubmit={onSubmit}
       isValid={isValid}
+      isLoading={isLoading}
     >
       <label className="auth__field">
         <p className="auth__input-name">E-mail</p>

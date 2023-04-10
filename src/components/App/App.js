@@ -256,8 +256,8 @@ const App = () => {
       />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/signup" element={!isLoggedIn ? <Register onRegister={handleRegister}/> : <Navigate to="/movies" replace />}/>
-        <Route path="/signin" element={!isLoggedIn ? <Login onLogin={handleLogin}/> : <Navigate to="/movies" replace />}/>
+        <Route path="/signup" element={!isLoggedIn ? <Register onRegister={handleRegister} isLoading={isLoading}/> : <Navigate to="/movies" replace />}/>
+        <Route path="/signin" element={!isLoggedIn ? <Login onLogin={handleLogin} isLoading={isLoading}/> : <Navigate to="/movies" replace />}/>
         <Route
           path="/profile"
           element={
