@@ -8,7 +8,7 @@ function Techs() {
         <h2 className="section-title">Технологии</h2>
         <div className="tech__text">
           <h3 className="tech__text-title">7 технологий</h3>
-          <p className="tech__text-desc">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
+          <p className="tech__text-desc">Технологии которые я применил для разработки проекта.</p>
         </div>
         <ul className="tech__skills">
           <li className="tech__skills-item">HTML</li>

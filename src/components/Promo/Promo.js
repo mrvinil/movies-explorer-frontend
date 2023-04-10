@@ -6,7 +6,10 @@ function Promo() {
   return (
     <section className="container-fluid theme_dark_blue">
       <div className="promo container">
-        <h1 className="promo__title">Учебный проект студента факультета Веб-разработки.</h1>
+        <h1 className="promo__title">Pet-проект на React и Express.js
+          <br/>
+          <small>Авторизуйся, чтобы увидеть проект</small>
+        </h1>
         <img src={promoImg} alt="Project" className="promo__img"/>
       </div>
     </section>
